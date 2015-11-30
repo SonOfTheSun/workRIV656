@@ -21,16 +21,16 @@ public class Operations {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		print("x           = ", addZero(length, Integer.toBinaryString(x)));
-		print("y           = ", addZero(length, Integer.toBinaryString(y)));
-		print("Conjunction = ", addZero(length, Integer.toBinaryString(conjunction())));
-		print("Disjunction = ", addZero(length, Integer.toBinaryString(disjunction())));
-		print("binaryNot x = ", addZero(length, Integer.toBinaryString(binaryNot(x))));
-		print("binaryNot y = ", addZero(length, Integer.toBinaryString(binaryNot(y))));
-		print("binaryXor   = ", addZero(length, Integer.toBinaryString(binaryXor())));
-		print("shiftLeft x = ", addZero(length, Integer.toBinaryString(shiftLeft(x, shift))));
-		print("shiftRight x = ", addZero(length, Integer.toBinaryString(shiftRight(x, shift))));
-		print("unsignedShiftRight x  = ", addZero(length, Integer.toBinaryString(unsignedShiftRight(x, shift))));
+		print("x           = ", trunk(x));
+		print("y           = ", trunk(y));
+		print("Conjunction = ", trunk(conjunction()));
+		print("Disjunction = ", trunk(disjunction()));
+		print("binaryNot x = ", trunk(binaryNot(x)));
+		print("binaryNot y = ", trunk(binaryNot(y)));
+		print("binaryXor   = ", trunk(binaryXor()));
+		print("shiftLeft x = ", trunk(shiftLeft(x, shift)));
+		print("shiftRight x = ", trunk(shiftRight(x, shift)));
+		print("unsignedShiftRight x  = ", trunk(unsignedShiftRight(x, shift)));
 	}
 	
 	/**
@@ -106,24 +106,27 @@ public class Operations {
 	}
 	
 	/**
-	 * добавление лидирующих нолей
-	 * @param length длина строки
+	 * Метод выводящий целое число в двоичном коде с лидирующими нулями
+	 * 1. превращаем число в 33-разрядное с лидирующей 1
+	 * 2. превращаем полученное число в строку
+	 * 3. удаляем лидирующую 1
 	 * @param value значение, к которому приращиваются ноли
-	 * @return результирующая строка длины @param length
+	 * @return строка с выводом лидирующих нолей
 	 */
-	public static String addZero(int length, String value){
-		return getStringZero(length).substring(value.length()) + value;
+	public static String trunk(int value){
+		return Integer.toBinaryString(setMask(value)).substring(1);
 	}
 	
 	/**
-	 * Получение 0-строки заданной длины
-	 * @param length длина строки
-	 * @return результирующая строка длины length
+	 * Метод накладывает маску "10{32}",
+	 * в результате получается число в 33 разряда, с главным разрядом 1, 
+	 * а остальные разрядные числа без изменений, тем самым функция {@link Integer.toBinaryString()}
+	 * не обрезает лидирующие нули
+	 * @param число для преобразования
+	 * @return 
 	 */
-	public static String getStringZero(int length){
-		StringBuilder builder = new StringBuilder();
-		builder.setLength(length);
-		return builder.toString().replace('\0', '0');
+	public static Integer setMask(Integer value){
+		return value|Integer.MIN_VALUE;
 	}
 	
 	

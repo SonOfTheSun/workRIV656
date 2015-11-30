@@ -12,8 +12,9 @@ public class Maxim {
 	 */
 	public static void main(String[] args) {
 		int m[] = {8, 3, 5, 1, 9};
+		int f[] = {};
 		try{
-			System.out.println("max = " + findMaximum(m));
+			System.out.println("max = " + findMaximum(f));
 		}catch(RuntimeException re){
 			System.out.println("Error! " + re.getMessage());
 		}
